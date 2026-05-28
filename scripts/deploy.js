@@ -1,16 +1,12 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-
-    const Storage = await ethers.getContractFactory("SimpleStorage");
-
-    const contract = await Storage.deploy();
-
-    await contract.waitForDeployment();
-
+    const LabToken = await ethers.getContractFactory("LabToken");
+    const labToken = await LabToken.deploy();
+    await labToken.waitForDeployment();
     console.log(
         "Contract deployed to:",
-        await contract.getAddress()
+        await labToken.getAddress()
     );
 }
 
