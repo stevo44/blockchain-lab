@@ -26,4 +26,15 @@ describe("SimpleStorage Security", function () {
             .to.emit(contract, "ValueUpdated") 
             .withArgs(owner.address, 42); 
     }); 
+
+
+// 4th test — verifies that the stored value cannot be changed by a there party even after owner set it once
+  it("retains correct value after unauthorized attempt", async () => {  
+    await contract.setValue(77);
+    await expect(
+      contract.connect(attacker).setValue(999)
+    ).to.be.reverted;
+    expect(await contract.getValue()).to.equal(77);
+  });
+
 }); 
